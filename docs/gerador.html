@@ -108,17 +108,17 @@ function sig(){
   '<div style="'+F+'font-size:13px;font-weight:bold;color:#ff00dd;line-height:18px;padding-top:4px">'+cargo+'</div>'+
   '<table cellpadding="0" cellspacing="0" border="0" style="margin-top:10px">'+
     '<tr><td width="20" style="padding:2px 0"><img src="'+BASE+'sig-mail.png" width="20" height="20" alt="E-mail" style="display:block;border:0"></td>'+
-    '<td style="padding:2px 0 2px 8px;'+F+'font-size:12px"><a href="mailto:'+email+'" style="color:#232323;text-decoration:none">'+email+'</a></td></tr>'+
+    '<td style="padding:2px 0 2px 8px;'+F+'font-size:12px"><a href="mailto:'+email+'" style="color:#232323 !important;text-decoration:none !important"><span style="color:#232323;text-decoration:none">'+email+'</span></a></td></tr>'+
     '<tr><td width="20" style="padding:2px 0"><img src="'+BASE+'sig-tel.png" width="20" height="20" alt="Telefone" style="display:block;border:0"></td>'+
-    '<td style="padding:2px 0 2px 8px;'+F+'font-size:12px"><a href="tel:'+esc(telLink)+'" style="color:#232323;text-decoration:none">'+tel+'</a></td></tr>'+
+    '<td style="padding:2px 0 2px 8px;'+F+'font-size:12px"><a href="tel:'+esc(telLink)+'" style="color:#232323 !important;text-decoration:none !important"><span style="color:#232323;text-decoration:none">'+tel+'</span></a></td></tr>'+
   '</table>'+
 '</td>'+
 '<td valign="top" align="right" style="padding:16px 20px 0 0">'+
   '<table cellpadding="0" cellspacing="0" border="0"><tr>'+
-    '<td valign="top" align="right">'+
-      '<img src="'+BASE+'contagem.png" width="120" height="50" alt="Contagem para a APAS Show 2027" style="display:block;border:0">'+
-      '<a href="'+esc(comUtm(D.link))+'" style="text-decoration:none"><img src="'+BASE+D.botao+'" width="'+D.largura+'" height="28" alt="'+D.alt+'" style="display:block;border:0;margin-top:8px"></a>'+
-    '</td>'+
+    '<td valign="top"><table cellpadding="0" cellspacing="0" border="0" width="160" style="width:160px">'+
+      '<tr><td align="center"><img src="'+BASE+'contagem.png" width="120" height="50" alt="Contagem para a APAS Show 2027" style="display:block;border:0;margin:0 auto"></td></tr>'+
+      '<tr><td align="center" style="padding-top:8px"><a href="'+esc(comUtm(D.link))+'" style="text-decoration:none"><img src="'+BASE+D.botao+'" width="'+D.largura+'" height="28" alt="'+D.alt+'" style="display:block;border:0;margin:0 auto"></a></td></tr>'+
+    '</table></td>'+
     '<td valign="top" style="padding-left:12px"><img src="'+BASE+'sig-logo.png" width="54" height="50" alt="APAS Show" style="display:block;border:0"></td>'+
   '</tr></table>'+
 '</td></tr>'+
@@ -132,7 +132,7 @@ function sig(){
   '<table cellpadding="0" cellspacing="0" border="0"><tr>'+
     '<td style="'+F+'font-size:11px;color:#232323;white-space:nowrap"><b style="color:#0000c8">17 a 20 de maio de 2027</b> · Expo Center Norte - SP</td>'+
     '<td style="padding-left:16px"><img src="'+BASE+'sig-web.png" width="16" height="16" alt="" style="display:block;border:0"></td>'+
-    '<td style="padding-left:5px;'+F+'font-size:11px"><a href="'+esc(LINK_SITE)+'" style="color:#232323;text-decoration:none">apasshow.com</a></td>'+
+    '<td style="padding-left:5px;'+F+'font-size:11px"><a href="'+esc(LINK_SITE)+'" style="color:#232323 !important;text-decoration:none !important"><span style="color:#232323;text-decoration:none">apasshow.com</span></a></td>'+
     (socials?'<td style="padding-left:12px"><table cellpadding="0" cellspacing="0" border="0"><tr>'+socials+'</tr></table></td>':'')+
   '</tr></table>'+
 '</td></tr>'+
