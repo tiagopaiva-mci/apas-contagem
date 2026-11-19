@@ -27,6 +27,7 @@ button{font:inherit;font-size:15px;font-weight:bold;min-height:44px;padding:0 18
 .pri{background:var(--mag);color:#fff}.sec{background:#fff;color:var(--azul);border:1px solid var(--azul)}
 .ok{font-size:14px;color:#0a7a3e;font-weight:bold;min-height:20px;margin-top:10px}
 ol{margin:0;padding-left:20px;font-size:14px;line-height:1.6}
+.dep{display:flex;align-items:center;gap:10px;font-weight:normal;font-size:14px;margin:4px 0;min-height:36px;cursor:pointer}.dep input{width:18px;height:18px;min-height:0;margin:0;accent-color:var(--mag)}
 details{margin-top:12px;font-size:14px}summary{cursor:pointer;font-weight:bold;color:var(--azul);min-height:32px}
 </style>
 </head>
@@ -35,8 +36,12 @@ details{margin-top:12px;font-size:14px}summary{cursor:pointer;font-weight:bold;c
 <main>
   <section class="card">
     <h2>1. Seus dados</h2>
+    <fieldset style="border:0;padding:0;margin:0"><legend style="font-size:13px;font-weight:bold;margin-bottom:6px">Departamento</legend>
+      <label class="dep"><input type="radio" name="dep" value="visitante" checked> Atendimento Credenciamento Visitante</label>
+      <label class="dep"><input type="radio" name="dep" value="caex"> Atendimento CAEX</label>
+    </fieldset>
     <label for="nome">Nome</label><input id="nome" value="Beatriz Perez" autocomplete="name">
-    <label for="cargo">Cargo ou área</label><input id="cargo" value="Atendimento Azul">
+    <label for="cargo">Cargo ou área</label><input id="cargo" value="Atendimento Credenciamento Visitante">
     <label for="email">E-mail</label><input id="email" type="email" value="atendimento_azul@eventosapas.com.br" autocomplete="email">
     <label for="tel">Telefone</label><input id="tel" value="+55 11 5028-4200" autocomplete="tel">
     <div class="hint">Use o formato +55 11 0000-0000</div>
@@ -72,16 +77,25 @@ details{margin-top:12px;font-size:14px}summary{cursor:pointer;font-weight:bold;c
 <script>
 // ====== CONFIGURAÇÃO (ajuste aqui) ======
 var BASE = 'https://tiagopaiva-mci.github.io/apas-contagem/';
-var LINK_CREDENCIAMENTO = 'https://apasshow.com/?utm_source=assinatura_email&utm_medium=email&utm_campaign=apas_show_2027';
-var LINK_SITE = 'https://apasshow.com/';
+var UTM = 'utm_source=assinatura_email&utm_medium=email&utm_campaign=apas_show_2027';
+var DEPTOS = {
+  visitante: { cargo: 'Atendimento Credenciamento Visitante', botao: 'sig-botao.png', largura: 120, alt: 'Credencie-se',
+               link: 'https://apas.easyeventos.com.br/apasshow/27/credenciamento' },
+  caex:      { cargo: 'Atendimento CAEX', botao: 'sig-botao-manual.png', largura: 160, alt: 'Manual do expositor',
+               link: 'https://apas.easyeventos.com.br/apasshow/27/manual' }
+};
+var LINK_SITE = 'https://www.apasshow.com/';
 var LINK_INSTAGRAM = 'https://www.instagram.com/apasshow/';
-var LINK_LINKEDIN = '';   // cole o link da página da APAS Show no LinkedIn
+var LINK_LINKEDIN = 'https://www.linkedin.com/company/apasshow/';
 var LINK_WHATSAPP = '';   // ex.: https://wa.me/5511999999999
 // ========================================
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function v(id){return document.getElementById(id).value.trim();}
 function soc(link,img,alt){return link?'<a href="'+esc(link)+'" style="text-decoration:none"><img src="'+BASE+img+'" width="16" height="16" alt="'+alt+'" style="display:block;border:0"></a>':'';}
+function dep(){var r=document.querySelector('input[name=dep]:checked');return DEPTOS[r?r.value:'visitante'];}
+function comUtm(u){return u+(u.indexOf('?')<0?'?':'&')+UTM;}
 function sig(){
+  var D=dep();
   var nome=esc(v('nome')),cargo=esc(v('cargo')),email=esc(v('email')),tel=esc(v('tel'));
   var telLink=v('tel').replace(/[^\d+]/g,'');
   var socials=[soc(LINK_INSTAGRAM,'sig-ig.png','Instagram'),soc(LINK_LINKEDIN,'sig-in.png','LinkedIn'),soc(LINK_WHATSAPP,'sig-wa.png','WhatsApp')].filter(Boolean)
@@ -103,7 +117,7 @@ function sig(){
   '<table cellpadding="0" cellspacing="0" border="0"><tr>'+
     '<td valign="top" align="right">'+
       '<img src="'+BASE+'contagem.png" width="120" height="50" alt="Contagem para a APAS Show 2027" style="display:block;border:0">'+
-      '<a href="'+esc(LINK_CREDENCIAMENTO)+'" style="text-decoration:none"><img src="'+BASE+'sig-botao.png" width="120" height="28" alt="Credencie-se" style="display:block;border:0;margin-top:8px"></a>'+
+      '<a href="'+esc(comUtm(D.link))+'" style="text-decoration:none"><img src="'+BASE+D.botao+'" width="'+D.largura+'" height="28" alt="'+D.alt+'" style="display:block;border:0;margin-top:8px"></a>'+
     '</td>'+
     '<td valign="top" style="padding-left:12px"><img src="'+BASE+'sig-logo.png" width="54" height="50" alt="APAS Show" style="display:block;border:0"></td>'+
   '</tr></table>'+
@@ -127,6 +141,9 @@ function sig(){
 var prev=document.getElementById('prev'), ok=document.getElementById('ok');
 function render(){prev.innerHTML=sig();}
 ['nome','cargo','email','tel'].forEach(function(id){document.getElementById(id).addEventListener('input',render);});
+document.querySelectorAll('input[name=dep]').forEach(function(r){r.addEventListener('change',function(){
+  var c=document.getElementById('cargo'),cur=c.value.trim(),defs=Object.keys(DEPTOS).map(function(k){return DEPTOS[k].cargo;});
+  if(!cur||defs.indexOf(cur)>=0) c.value=dep().cargo; render();});});
 render();
 function msg(t){ok.textContent=t;setTimeout(function(){ok.textContent='';},4000);}
 document.getElementById('copiar').addEventListener('click',function(){
