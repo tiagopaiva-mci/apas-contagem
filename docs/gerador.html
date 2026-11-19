@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assinatura de e-mail · APAS Show 2027</title>
+<style>
+:root{--azul:#0000c8;--mag:#ff00dd;--tx:#232323;--mut:#6b6b78;--ln:#e3e3ea;--bg:#f5f5f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Arial,Helvetica,sans-serif}
+header{background:#000;color:#fff;padding:28px 16px}
+header .in{max-width:1060px;margin:0 auto;display:flex;align-items:center;gap:16px}
+header img{width:44px;height:41px}
+header h1{margin:0;font-size:22px;font-weight:bold}
+header p{margin:4px 0 0;font-size:14px;color:#c9c9d6}
+main{max-width:1060px;margin:0 auto;padding:28px 16px 60px;display:grid;grid-template-columns:280px minmax(0,1fr);gap:28px}
+@media (max-width:860px){main{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--ln);border-radius:12px;padding:22px}
+h2{margin:0 0 14px;font-size:16px;color:#000}
+label{display:block;font-size:13px;font-weight:bold;margin:14px 0 6px}
+input{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1px solid #c9c9d6;border-radius:8px;min-height:44px}
+input:focus{outline:2px solid var(--azul);border-color:var(--azul)}
+.hint{font-size:12px;color:var(--mut);margin-top:4px}
+.prev{overflow-x:auto;border:1px dashed #c9c9d6;border-radius:8px;padding:10px;background:#fff}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+button{font:inherit;font-size:15px;font-weight:bold;min-height:44px;padding:0 18px;border-radius:22px;border:0;cursor:pointer}
+.pri{background:var(--mag);color:#fff}.sec{background:#fff;color:var(--azul);border:1px solid var(--azul)}
+.ok{font-size:14px;color:#0a7a3e;font-weight:bold;min-height:20px;margin-top:10px}
+ol{margin:0;padding-left:20px;font-size:14px;line-height:1.6}
+details{margin-top:12px;font-size:14px}summary{cursor:pointer;font-weight:bold;color:var(--azul);min-height:32px}
+</style>
+</head>
+<body>
+<header><div class="in"><img src="sig-logo.png" alt="APAS Show"><div><h1>Assinatura de e-mail · APAS Show 2027</h1><p>Preencha seus dados, copie e cole no seu e-mail.</p></div></div></header>
+<main>
+  <section class="card">
+    <h2>1. Seus dados</h2>
+    <label for="nome">Nome</label><input id="nome" value="Beatriz Perez" autocomplete="name">
+    <label for="cargo">Cargo ou área</label><input id="cargo" value="Atendimento Azul">
+    <label for="email">E-mail</label><input id="email" type="email" value="atendimento_azul@eventosapas.com.br" autocomplete="email">
+    <label for="tel">Telefone</label><input id="tel" value="+55 11 5028-4200" autocomplete="tel">
+    <div class="hint">Use o formato +55 11 0000-0000</div>
+  </section>
+  <section style="display:flex;flex-direction:column;gap:28px;min-width:0">
+    <div class="card">
+      <h2>2. Prévia</h2>
+      <div class="prev" id="prev"></div>
+      <div class="btns">
+        <button class="pri" id="copiar" type="button">Copiar assinatura</button>
+        <button class="sec" id="copiarHtml" type="button">Copiar código HTML</button>
+      </div>
+      <div class="ok" id="ok" role="status"></div>
+    </div>
+    <div class="card">
+      <h2>3. Colar no e-mail</h2>
+      <details open><summary>Outlook (novo e web)</summary><ol>
+        <li>Configurações (engrenagem) &gt; Contas &gt; Assinaturas.</li>
+        <li>Clique em Nova assinatura, dê um nome (ex.: APAS 2027).</li>
+        <li>Clique na caixa de texto e cole com Ctrl+V.</li>
+        <li>Em Assinatura padrão, escolha a nova para novos e-mails e respostas. Salvar.</li></ol></details>
+      <details><summary>Outlook clássico (computador)</summary><ol>
+        <li>Arquivo &gt; Opções &gt; Email &gt; Assinaturas.</li>
+        <li>Novo, dê um nome e cole com Ctrl+V na caixa de edição.</li>
+        <li>Escolha a assinatura para Novas mensagens e Respostas. OK.</li></ol></details>
+      <details><summary>Gmail</summary><ol>
+        <li>Engrenagem &gt; Ver todas as configurações &gt; aba Geral.</li>
+        <li>Em Assinatura, clique em Criar nova e cole com Ctrl+V.</li>
+        <li>Escolha a assinatura nos padrões. Role até o fim e clique em Salvar alterações.</li></ol></details>
+    </div>
+  </section>
+</main>
+<script>
+// ====== CONFIGURAÇÃO (ajuste aqui) ======
+var BASE = 'https://tiagopaiva-mci.github.io/apas-contagem/';
+var LINK_CREDENCIAMENTO = 'https://apasshow.com/?utm_source=assinatura_email&utm_medium=email&utm_campaign=apas_show_2027';
+var LINK_SITE = 'https://apasshow.com/';
+var LINK_INSTAGRAM = 'https://www.instagram.com/apasshow/';
+var LINK_LINKEDIN = '';   // cole o link da página da APAS Show no LinkedIn
+var LINK_WHATSAPP = '';   // ex.: https://wa.me/5511999999999
+// ========================================
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function v(id){return document.getElementById(id).value.trim();}
+function soc(link,img,alt){return link?'<a href="'+esc(link)+'" style="text-decoration:none"><img src="'+BASE+img+'" width="16" height="16" alt="'+alt+'" style="display:block;border:0"></a>':'';}
+function sig(){
+  var nome=esc(v('nome')),cargo=esc(v('cargo')),email=esc(v('email')),tel=esc(v('tel'));
+  var telLink=v('tel').replace(/[^\d+]/g,'');
+  var socials=[soc(LINK_INSTAGRAM,'sig-ig.png','Instagram'),soc(LINK_LINKEDIN,'sig-in.png','LinkedIn'),soc(LINK_WHATSAPP,'sig-wa.png','WhatsApp')].filter(Boolean)
+    .map(function(s){return '<td style="padding-left:4px">'+s+'</td>';}).join('');
+  var F='font-family:Arial,Helvetica,sans-serif;';
+  return ''+
+'<table cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;background:#ffffff;'+F+'">'+
+'<tr><td valign="top" style="padding:18px 0 0 24px">'+
+  '<div style="'+F+'font-size:22px;font-weight:bold;color:#000000;line-height:26px">'+nome+'</div>'+
+  '<div style="'+F+'font-size:13px;font-weight:bold;color:#ff00dd;line-height:18px;padding-top:4px">'+cargo+'</div>'+
+  '<table cellpadding="0" cellspacing="0" border="0" style="margin-top:10px">'+
+    '<tr><td width="20" style="padding:2px 0"><img src="'+BASE+'sig-mail.png" width="20" height="20" alt="E-mail" style="display:block;border:0"></td>'+
+    '<td style="padding:2px 0 2px 8px;'+F+'font-size:12px"><a href="mailto:'+email+'" style="color:#232323;text-decoration:none">'+email+'</a></td></tr>'+
+    '<tr><td width="20" style="padding:2px 0"><img src="'+BASE+'sig-tel.png" width="20" height="20" alt="Telefone" style="display:block;border:0"></td>'+
+    '<td style="padding:2px 0 2px 8px;'+F+'font-size:12px"><a href="tel:'+esc(telLink)+'" style="color:#232323;text-decoration:none">'+tel+'</a></td></tr>'+
+  '</table>'+
+'</td>'+
+'<td valign="top" align="right" style="padding:16px 20px 0 0">'+
+  '<table cellpadding="0" cellspacing="0" border="0"><tr>'+
+    '<td valign="top" align="right">'+
+      '<img src="'+BASE+'contagem.png" width="120" height="50" alt="Contagem para a APAS Show 2027" style="display:block;border:0">'+
+      '<a href="'+esc(LINK_CREDENCIAMENTO)+'" style="text-decoration:none"><img src="'+BASE+'sig-botao.png" width="120" height="28" alt="Credencie-se" style="display:block;border:0;margin-top:8px"></a>'+
+    '</td>'+
+    '<td valign="top" style="padding-left:12px"><img src="'+BASE+'sig-logo.png" width="54" height="50" alt="APAS Show" style="display:block;border:0"></td>'+
+  '</tr></table>'+
+'</td></tr>'+
+'<tr><td colspan="2" style="padding:8px 20px 0 24px">'+
+  '<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>'+
+    '<td valign="middle"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td height="2" bgcolor="#0000c8" style="height:2px;font-size:0;line-height:0;background:#0000c8">&nbsp;</td></tr></table></td>'+
+    '<td width="38" align="right" valign="middle"><img src="'+BASE+'sig-icone.png" width="32" height="36" alt="" style="display:block;border:0"></td>'+
+  '</tr></table>'+
+'</td></tr>'+
+'<tr><td colspan="2" style="padding:0 24px 14px 24px">'+
+  '<table cellpadding="0" cellspacing="0" border="0"><tr>'+
+    '<td style="'+F+'font-size:11px;color:#232323;white-space:nowrap"><b style="color:#0000c8">17 a 20 de maio de 2027</b> · Expo Center Norte - SP</td>'+
+    '<td style="padding-left:16px"><img src="'+BASE+'sig-web.png" width="16" height="16" alt="" style="display:block;border:0"></td>'+
+    '<td style="padding-left:5px;'+F+'font-size:11px"><a href="'+esc(LINK_SITE)+'" style="color:#232323;text-decoration:none">apasshow.com</a></td>'+
+    (socials?'<td style="padding-left:12px"><table cellpadding="0" cellspacing="0" border="0"><tr>'+socials+'</tr></table></td>':'')+
+  '</tr></table>'+
+'</td></tr>'+
+'</table>';
+}
+var prev=document.getElementById('prev'), ok=document.getElementById('ok');
+function render(){prev.innerHTML=sig();}
+['nome','cargo','email','tel'].forEach(function(id){document.getElementById(id).addEventListener('input',render);});
+render();
+function msg(t){ok.textContent=t;setTimeout(function(){ok.textContent='';},4000);}
+document.getElementById('copiar').addEventListener('click',function(){
+  var html=sig();
+  if(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write){
+    navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([prev.innerText],{type:'text/plain'})})])
+      .then(function(){msg('Assinatura copiada. Agora cole no seu e-mail (Ctrl+V).');},fallback);
+  } else fallback();
+  function fallback(){var r=document.createRange();r.selectNodeContents(prev);var s=getSelection();s.removeAllRanges();s.addRange(r);
+    try{document.execCommand('copy');msg('Assinatura copiada. Agora cole no seu e-mail (Ctrl+V).');}catch(e){msg('Selecione a prévia e copie com Ctrl+C.');} s.removeAllRanges();}
+});
+document.getElementById('copiarHtml').addEventListener('click',function(){
+  var t=document.createElement('textarea');t.value=sig();document.body.appendChild(t);t.select();
+  try{navigator.clipboard?navigator.clipboard.writeText(t.value):document.execCommand('copy');msg('Código HTML copiado.');}catch(e){}
+  document.body.removeChild(t);
+});
+</script>
+</body>
+</html>
